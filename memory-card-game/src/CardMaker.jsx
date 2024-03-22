@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function CardMaker(props)
 {
 
-    const { image, altText, cardText, onCardClick} = props;
+    const { image, altText, cardText, onCardClick, isClicked} = props;
     const [ hasBeenClicked, setHasBeenClicked ] = useState(false);
     
 

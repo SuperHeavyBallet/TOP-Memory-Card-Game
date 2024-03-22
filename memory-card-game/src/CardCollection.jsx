@@ -35,12 +35,16 @@ function shuffleArray(array)
 export default function CardCollection()
 {
     const [ imageCollection, setImageCollection ] = useState(shuffleArray([...initialImageCollection]));
+    const [ clickedCards, setClickedCards ] = useState(new Set());
 
-    function handleCardClick()
+    function handleCardClick(cardID)
     {
-        
+        setClickedCards(prev => new Set(prev.add(cardID)));
         setImageCollection(shuffleArray([...imageCollection]));
+        
     }
+
+
     return (
         <div>
             <div className="card-collection">
@@ -49,13 +53,16 @@ export default function CardCollection()
                     key={img.id} 
                     image={img.src} 
                     altText={img.altText} 
-                    cardText={img.cardText}
-                    onCardClick={handleCardClick}
+                    cardText={img.cardText + " " + img.id}
+                    onCardClick={ () => 
+                        handleCardClick(img.id)}
+
                     />
                 ))}
             </div>
             <div>
                 <h3>{imageCollection.length}</h3>
+                <h3>{clickedCards.size}</h3>
             </div>
         </div>
     )
