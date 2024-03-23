@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function CardMaker(props)
 {
 
-    const { altText, cardText, onCardClick} = props;
+    const { altText, cardText, onCardClick, shouldFlip} = props;
 
 
     const [ image, setImage ] = useState('');
@@ -41,9 +41,10 @@ export default function CardMaker(props)
 
     return (
         <div className="card-container" onClick={handleClick}>
-        <div className={`card ${isFlipped ? 'is-flipped' : ''}`}>
+        <div className={`card ${shouldFlip ? 'is-flipped' : ''}`}>
             <div className="card-face">
                 {image && <img className="card-image" src={image} alt={altText}></img>}
+                <h3>{cardText}</h3>
             </div>
             <div className="card-back">
                 {/* Insert your SVG or use a background-image for the paw print */}

@@ -30,6 +30,10 @@ export default function CardCollection()
     const [ score, setScore ] = useState(0);
     const [ bestScore, setBestScore ] = useState(0);
 
+    const [ shouldFlip, setShouldFlip ] = useState(false);
+
+
+
     function handleCardClick(cardID)
     {
         
@@ -40,7 +44,12 @@ export default function CardCollection()
             window.alert("Already Clicked Card: " + cardID);
             setScore(0);
             setClickedCards(new Set());
+            setShouldFlip(true);
             setImageCollection(shuffleArray([...initialImageCollection]));
+            setTimeout(() =>
+            {
+                setShouldFlip(false);
+            }, 600);
         } 
         else
         {
@@ -52,11 +61,20 @@ export default function CardCollection()
             }
             if (score + 1 === 10)
             {
-                window.alert("You Won!");
+                setTimeout(() =>
+                {
+                    window.alert("You Won!");
+                }, 700);
+                
             }
         } 
 
+        setShouldFlip(true);
         setImageCollection(shuffleArray([...imageCollection]));
+        setTimeout(() =>
+        {
+            setShouldFlip(false);
+        }, 600);
 
         
     }
@@ -65,7 +83,12 @@ export default function CardCollection()
     {
             setScore(0);
             setClickedCards(new Set());
+            setShouldFlip(true);
             setImageCollection(shuffleArray([...initialImageCollection]));
+            setTimeout(() =>
+            {
+                setShouldFlip(false);
+            }, 600);
     }
 
 
@@ -76,8 +99,9 @@ export default function CardCollection()
                     <CardMaker 
                     key={img.id} 
                     altText={"Card " + img.id} 
-                    cardText={" "}
+                    cardText={img.id}
                     onCardClick={ () => handleCardClick(img.id)}    
+                    shouldFlip={shouldFlip ? true : false}
                     />
                 ))}
             </div>
