@@ -14,6 +14,8 @@ export default function CardMaker(props)
     const [ image, setImage ] = useState('');
     const [ isFlipped, setIsFlipped ] = useState(false);
 
+    const [isHovering, setIsHovering] = useState(false); // New state for hover
+
 
     useEffect(() => 
     {
@@ -28,26 +30,28 @@ export default function CardMaker(props)
 
     function handleClick()
     {
-        setIsFlipped(true);
-        setTimeout(() => 
-        {
+
             onCardClick();
-            setIsFlipped(false);
-        }, 600);
+
            
     }
 
 
 
     return (
-        <div className="card-container" onClick={handleClick}>
-        <div className={`card ${shouldFlip ? 'is-flipped' : ''}`}>
+        <div className="card-container" 
+            onClick={handleClick}
+            onMouseEnter={() => setIsHovering(true)}  // Set hover state to true on mouse enter
+            onMouseLeave={() => setIsHovering(false)} // Set hover state to false on mouse leave
+            >
+        <div className={`card ${shouldFlip ? 'is-flipped' : ''} ${isHovering ? 'hover-class' : ''}`}>
             <div className="card-face">
                 {image && <img className="card-image" src={image} alt={altText}></img>}
-                <h3>{cardText}</h3>
+                
             </div>
             <div className="card-back">
-                {/* Insert your SVG or use a background-image for the paw print */}
+                
+
             </div>
         </div>
     </div>

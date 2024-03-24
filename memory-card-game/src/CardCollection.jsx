@@ -36,43 +36,38 @@ export default function CardCollection()
 
     function handleCardClick(cardID)
     {
-        
-
-
-        if (clickedCards.has(cardID))
-        {
-            window.alert("Already Clicked Card: " + cardID);
-            setScore(0);
-            setClickedCards(new Set());
-            setShouldFlip(true);
-            setImageCollection(shuffleArray([...initialImageCollection]));
-            setTimeout(() =>
-            {
-                setShouldFlip(false);
-            }, 600);
-        } 
-        else
-        {
-            setClickedCards(prev => new Set(prev.add(cardID)));
-            setScore(prevScore => prevScore + 1);
-            if (score + 1 > bestScore)
-            {
-                setBestScore(score + 1);
-            }
-            if (score + 1 === 10)
-            {
-                setTimeout(() =>
-                {
-                    window.alert("You Won!");
-                }, 700);
-                
-            }
-        } 
-
         setShouldFlip(true);
-        setImageCollection(shuffleArray([...imageCollection]));
+
         setTimeout(() =>
         {
+            if (clickedCards.has(cardID))
+            {
+                window.alert("Already Clicked Card: " + cardID);
+                setScore(0);
+                setClickedCards(new Set());
+            } 
+            else
+            {
+                setClickedCards(prev => new Set(prev.add(cardID)));
+                setScore(prevScore => prevScore + 1);
+                
+                if (score + 1 > bestScore)
+                {
+                    setBestScore(score + 1);
+                }
+                if (score + 1 === 10)
+                {
+                    setTimeout(() =>
+                    {
+                        window.alert("You Won!");
+                    }, 700);
+                    
+                }
+            } 
+
+        
+       
+            setImageCollection(shuffleArray([...imageCollection]));
             setShouldFlip(false);
         }, 600);
 
